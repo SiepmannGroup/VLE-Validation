@@ -1,0 +1,98 @@
+ &io
+     file_input  ='fort.4'
+     file_restart='fort.77'
+     file_struct ='input_struc.xyz'
+     file_run    ='run1a.dat'
+     file_movie  ='movie1a.dat'
+     io_output   = 2
+     run_num     = 1
+     suffix      = a
+     L_movie_xyz = T
+     L_movie_pdb = T
+ /
+
+
+ &system
+     lnpt  =		F
+     lgibbs= 		  T
+     lgrand= 		F
+     lanes = 		F
+     lvirial= 		F
+     lmipsw = 		F
+     lexpee = 		F
+     ldielect= 		F
+     lpbc = 		  T
+     lpbcx= 		  T
+     lpbcy= 		  T
+     lpbcz= 		  T
+     lfold= 		  T
+     lijall = 		F
+     lchgall= 		F
+     lewald = 		  T
+     lcutcm = 		  T
+     ltailc = 		  T
+     lshift = 		F
+     ldual  = 		  T
+     L_Coul_CBMC=	  T
+     lneigh = 		F
+     lexzeo = 		F
+     lslit  = 		F
+     lgraphite= 	F
+     lsami= 		F
+     lmuir= 		F
+     lelect_field= 	F
+     lgaro = 		F
+     lionic= 		  T
+     L_Ewald_Auto= 	  T
+     lmixlb= 		  T
+     lmixjo= 		F
+     L_spline= 		F
+     L_linear= 		F
+     L_vib_table  = 	F
+     L_bend_table = 	F
+     L_elect_table= 	F
+ /
+
+ATOMS
+!i type(i) epsi(i) sigi(i) q(i) mass(i) chemid(i) chname(i) [Angstrom, Kelvin, a.u.]; type 1: Lennard-Jones
+  4 1   98.0000  3.75000  0.0000  15.0347000 C   #Tr-UA CH3
+  5 1   46.0000  3.95000  0.0000  14.0269000 C   #Tr-UA CH2
+ 61 1    0.0000  0.00000  0.4350   1.0079400 H   #Tr-UA HO
+ 62 1   93.0000  3.02000  -0.700  15.9994000 O   #Tr-UA OH
+ 64 1   46.0000  3.95000  0.2650  14.0269000 C   #Tr-UA CH2-O
+ 80 1   46.0000	 3.95000  -0.043  14.0269000 C	 #Tr-UA CHx-[CH2]-CH=O
+ 81 1   54.0000  3.52000  0.5250  13.01884   C   #Tr-UA CHx-[CH]=O
+ 82 1	79.0000  3.05000  -0.482  15.9994000 O   #Tr-UA CH=[O] 
+END ATOMS
+
+NONBOND
+!i j type(ij) epsi(ij) sigi(ij) [Angstrom, Kelvin, a.u.]; type 1: Lennard-Jones
+END NONBOND
+
+BONDS
+!i type(i) brvib(i) brvibk(i) [Angstrom]; type 1: U = brvibk * ( r_ij - brvib ) ^ 2
+  1 1 1.54000   0.00000 #Tr-UA CHx-CHy
+ 29 1 0.94500   0.00000 #Tr-UA O-H
+ 30 1 1.43000   0.00000 #Tr-UA O-CHx
+ 80 1 1.52000   0.00000 #Tr-UA CHx-(CHy=O)
+ 81 1 1.21700   0.00000 #Tr-UA CH=O
+END BONDS
+
+ANGLES
+!i type(i) brben(i) brbenk(i) [degree]; type 1: U = brbenk * ( theta_ijk - brben ) ^ 2 [radian]
+  1 1 114.0000   31250.0  #Tr-UA CHx-(CH2)-CHy
+  2 1 112.0000   31250.0  #Tr-UA CHx-(CH)-CHy
+ 35 1 109.5000   25200.0  #Tr-UA CHx-CH2-O
+ 36 1 108.5000   27700.0  #Tr-UA CH2-O-H
+ 80 1 121.4000   31250.0  #Tr-UA CHx-(CHy)=O
+END ANGLES
+
+DIHEDRALS
+!i type(i) vtt0(i) vtt1(i) vtt2(i) vtt3(i); !!!check vtorso.f, calctor.f!!!
+  1 1    0.00   355.03   -68.19   791.32  0.0  0.0  0.0  0.0  0.0 0.0 #CHx-(CH2)-(CH2)-CHy
+  2 1 -251.06   428.73  -111.85   441.27  0.0  0.0  0.0  0.0  0.0 0.0 #CHx-(CH2)-(CH)-CHy
+  5 1    0.00   209.82   -29.17   187.93  0.0  0.0  0.0  0.0  0.0 0.0 #CHx-(CH2)-(O)-H
+  6 1    0.00   176.62   -53.34   769.93  0.0  0.0  0.0  0.0  0.0 0.0 #CHx-(CH2)-(CH2)-O
+ 80 1   11.81   467.80  -274.10   846.80  0.0  0.0  0.0  0.0  0.0 0.0 #CHx-(CH2)-CH[=O]
+ 81 1 1182.00  -225.60   302.80  -339.30  0.0  0.0  0.0  0.0  0.0 0.0 #CHx-(CH2)-(CH)=O
+END DIHEDRALS

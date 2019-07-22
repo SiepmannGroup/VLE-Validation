@@ -1,0 +1,2 @@
+grep: test.out: No such file or directory
+mv: cannot stat `movie1a.dat': No such file or directory
