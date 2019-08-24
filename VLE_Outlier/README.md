@@ -8,7 +8,12 @@ weight: the molecular weight of the molecule in g/mol
 t_c: the critial temperature of the molecule in K
 
 The data in the input file is parsed using the column names in the first line:
-temperature: T/temperature
-vapor density: rhog/density
-pressure: p/pressure
-compressibility factor: z/compressibility
+
+temperature: <code>T / temperature</code>
+
+vapor density: <code>rhog / density</code>
+
+pressure: <code>p / pressure</code>
+
+compressibility factor: <code>z / compressibility</code>
+
