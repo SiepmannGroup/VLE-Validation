@@ -22,14 +22,14 @@ def parse_args():
 class VLEData:
 
     # static method to get expected compressibility factor
-    get_z_exd = lambda t: 0.2732 * np.log(1.070 - t ** 2.921) + 1.007
+    get_z_exd = lambda t: 0.277 + (1 - 0.277) * (1 - np.maximum(1.9 * t - 0.9, 0) ** 1.8) ** 0.46
 
     # t_r bounds and ranges to dectect outliers 
     tr_bounds = [0.70, 0.85]
-    z_ranges = {'low': [-0.02, 0.05], 'mid': [-0.06, 0.05], 'high': [-0.13, 0.12]}
-    p_ranges = {'cc_low': {'low': [-0.06, 0.03], 'mid': [-0.06, 0.05], 'high': [-0.07, 0.07]},
-                'cc_mid': {'low': [-0.02, 0.05], 'mid': [-0.03, 0.04], 'high': [-0.03, 0.04]},
-                'cc_high': {'low': [-0.06, 0.01], 'mid': [-0.06, 0.04], 'high': [-0.05, 0.05]}
+    z_ranges = {'low': [-0.03, 0.03], 'mid': [-0.06, 0.05], 'high': [-0.09, 0.11]}
+    p_ranges = {'cc_low': {'low': [-0.09, 0.06], 'mid': [-0.06, 0.05], 'high': [-0.06, 0.06]},
+                'cc_mid': {'low': [-0.01, 0.03], 'mid': [-0.02, 0.03], 'high': [-0.03, 0.03]},
+                'cc_high': {'low': [-0.09, 0.05], 'mid': [-0.05, 0.03], 'high': [-0.04, 0.04]}
                }
 
     def __init__(self, mol_weight, critical_temp, data, columns):
@@ -211,6 +211,9 @@ if __name__ == '__main__':
             columns['z'] = header.index('z')
         elif 'compressibility' in header:
             columns['z'] = header.index('compressibility')
+        # sort data by increasing temperature
+        index = np.argsort(data[:, columns['temp']])
+        data = data[index, :]
 
 
     vle = VLEData(args.weight, args.critical_temperature, data, columns)
